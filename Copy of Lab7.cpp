@@ -32,14 +32,11 @@ class Signal{
 		{
 			int k = 0;
 			average = 0;
-			//double *start = data;
 			while(k < length)
 			{
 				average = average + (int)data[k];
-				//data++;
-				k++;
+						k++;
 			}
-			//data = start;
 			average = average / length;
 			// Finds the average of the array
 		}
@@ -47,22 +44,16 @@ class Signal{
 		{
 			int k = 0;
 			max = 0;
-			//double *start = data;
 			while(k < length)
 			{
 				if( data[k] > max )
 				{
 					max = data[k];
 				}
-				//data++;
 				k++;
 			}
-			//data = start;
-			
 			// Finds the max of the array
 		}
-		//Makes private bits of the class
-	
 		void ScaleIt( double scale );
 		void OffsetIt( double offset );
 		void StatIt(void);
@@ -84,34 +75,12 @@ Signal operator+(Signal , Signal);
 
 Signal::Signal ()
 {
-//	int k = 0; 
-//	char *Filename = new char[50];
-	//string Filename = "Lab7Default.txt";
-//	sprintf(Filename, "Lab7Default.txt");
-//	FILE *fp = fopen(Filename, "r");
-	
-//	fscanf( fp , "%d %d" , &length , &max);
-	
 	length = 0;
 	max = 0;
 	k = 0; 
 	data.resize(0,0);
 	average = 0;
-//	data = new double[length];
-	
-	//double* DataStart = data;
-//	while(k < length)
-//	{
-//		int temp;
-//		fscanf(fp,"%d\n",&temp);
-//		data[k] = temp;
-		//data++;
-//		k++;
-//	}
-	//data = DataStart;
-	cout<<"TEST"<<endl;
-//	fclose(fp);
-	//delete[] Filename;
+
 // Fills out Signal with default data 
 }
 
@@ -119,27 +88,22 @@ Signal::Signal ( int num )
 { 
 	k = 0;
 	char *Filename = new char[50];
-//	string Filename; 
+
 	sprintf(Filename, "Raw_data_%02d.txt", num);
 	FILE *fp = fopen(Filename, "r");
-
 	fscanf( fp , "%d %d" , &length , &max);
-//	data = new double[length];
-
-//	double* DataStart = data;
 	while(k < length)
 	{
 		int temp;
 		fscanf(fp,"%d\n",&temp);
 		data[k] = temp;
-		//data++;
 		k++;
 	}
-	//data = DataStart;
+
 	FindAverage();
 
 	fclose(fp);
-	//delete[] Filename;
+	delete[] Filename;
 //Fills out Signal with data from number files	
 } 
 
@@ -148,33 +112,29 @@ Signal::Signal ( const char* Filename)
 	k = 0;
 
 	char fileString[50];
-//	string fileString;
 	sprintf(fileString,"%s",Filename);
 	FILE *fp = fopen(fileString, "r");
 
 	fscanf( fp , "%d %d" , &length , &max);
-//	data = new double[length];
 
-//	double* DataStart = data;
 	while(k < length)
 	{
 		int temp;
 		fscanf(fp,"%d\n",&temp);
 		data[k] = temp;
-		//data++;
+
 		k++;
 	}
-//	data = DataStart;
+
 	FindAverage();
 
 	fclose(fp);
-//	delete[] Filename;
+	delete[] Filename;
 //Fills out Signal with data from user inputted file	
 }
 
 Signal::~Signal()
 {
-	//delete[] data;
 //Destruct-o-trons things	
 }
 
@@ -203,6 +163,7 @@ Signal operator+( Signal s1 , Signal s2 )
 	}
 		s3.FindAverage();
 		return s3; 
+	// Adds equal size signals 
 }
 
 double Signal::operator+( double off )
@@ -210,6 +171,7 @@ double Signal::operator+( double off )
 	double newval;
 	newval = data[k] + off;
 	return newval;
+	//offsets a signal
 }
 
 double Signal::operator*( double scl )
@@ -217,6 +179,7 @@ double Signal::operator*( double scl )
 	double newval;
 	newval = data[k] * scl;
 	return newval;
+	//scales a signal
 }
 
 
